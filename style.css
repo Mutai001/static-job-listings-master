@@ -70,6 +70,10 @@ body {
     color: hsl(180, 29%, 50%);
 }
 
+.clear:hover {
+    text-decoration: underline;
+}
+
 .job-listing {
     background-color: white;
     padding: 20px;
