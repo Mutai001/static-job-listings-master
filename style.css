@@ -38,8 +38,8 @@ body {
 }
 
 .tag {
-    background-color: hsl(180, 29%, 50%);
-    color: white;
+    background-color: white;
+    color: hsl(180, 29%, 50%);
     padding: 10px;
     border-radius: 5px;
     display: flex;
@@ -48,11 +48,20 @@ body {
 }
 
 .tag button {
-    background: none;
+    background-color: hsl(180, 29%, 50%);
     border: none;
     color: white;
     font-size: 16px;
     cursor: pointer;
+}
+
+.tag span {
+    color: hsl(180, 29%, 50%);
+    background-color: white;
+}
+
+.tag button:hover {
+    color: rgba(0, 0, 0, 0.1);
 }
 
 .clear {
@@ -108,9 +117,16 @@ body {
     color: hsl(180, 29%, 50%);
 }
 
-.company .new,
-.company .featured {
+.company .new {
     background-color: hsl(180, 29%, 50%);
+    color: white;
+    border-radius: 12px;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.company .featured {
+    background-color: hsl(180, 12%, 5%);
     color: white;
     border-radius: 12px;
     padding: 5px 10px;
@@ -158,4 +174,28 @@ body {
 
 .attribution a {
     color: hsl(180, 8%, 52%);
+}
+
+
+/* Media Queries for all devices */
+
+@media only screen and (max-width: 768px) {
+    .wrapper {
+        width: 90%;
+    }
+    .top-section {
+        padding: 10px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .wrapper {
+        width: 100%;
+    }
+    .top-img {
+        height: 100px;
+    }
+    .top-section {
+        padding: 5px;
+    }
 }
