@@ -61,7 +61,8 @@ body {
 }
 
 .tag button:hover {
-    color: rgba(0, 0, 0, 0.1);
+    background-color: black;
+    color: hsl(180, 31%, 95%);
 }
 
 .clear {
