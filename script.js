@@ -1,86 +1,53 @@
 document.addEventListener('DOMContentLoaded', () => {
-            const jobListings = document.getElementById('jobListings');
-            const filterTags = document.getElementById('filterTags');
-            const clearBtn = document.getElementById('clearBtn');
+    const filterTagsContainer = document.querySelector('.filter-tags');
+    const jobListingsContainer = document.querySelector('.job-listings');
+    const clearButton = document.querySelector('.clear');
 
-            let jobs = [];
-            let filters = [];
+    // Function to filter job listings based on selected tags
+    const filterJobListings = () => {
+        const selectedTags = Array.from(filterTagsContainer.querySelectorAll('.tag span')).map(tag => tag.textContent);
+        const jobListings = jobListingsContainer.querySelectorAll('.job-listing');
 
-            // Fetch job data from local JSON file
-            fetch('jobs.json')
-                .then(response => response.json())
-                .then(data => {
-                    jobs = data;
-                    displayJobs(jobs);
-                })
-                .catch(error => console.error('Error fetching job data:', error));
-
-            function displayJobs(jobs) {
-                jobListings.innerHTML = '';
-                jobs.forEach(job => {
-                            const jobElement = document.createElement('div');
-                            jobElement.className = `job-listing ${job.featured ? 'featured' : ''}`;
-
-                            jobElement.innerHTML = `
-                <div class="image-job">
-                    <img src="${job.logo}" alt="${job.company} logo">
-                </div>
-                <div class="job-content">
-                    <div class="job-header">
-                        <div class="company">
-                            ${job.company} ${job.new ? '<span class="new">NEW!</span>' : ''} ${job.featured ? '<span class="featured">FEATURED</span>' : ''}
-                        </div>
-                        <div class="job-title">${job.position}</div>
-                    </div>
-                    <div class="job-info">${job.postedAt} • ${job.contract} • ${job.location}</div>
-                    <div class="job-tags">
-                        <span>${job.role}</span>
-                        <span>${job.level}</span>
-                        ${job.languages.map(lang => `<span>${lang}</span>`).join('')}
-                        ${job.tools.map(tool => `<span>${tool}</span>`).join('')}
-                    </div>
-                </div>
-            `;
-
-            jobElement.querySelectorAll('.job-tags span').forEach(tag => {
-                tag.addEventListener('click', () => {
-                    if (!filters.includes(tag.textContent)) {
-                        filters.push(tag.textContent);
-                        updateFilters();
-                        filterJobs();
-                    }
-                });
-            });
-
-            jobListings.appendChild(jobElement);
+        jobListings.forEach(listing => {
+            const jobTags = Array.from(listing.querySelectorAll('.job-tags span')).map(tag => tag.textContent);
+            const isMatch = selectedTags.every(tag => jobTags.includes(tag));
+            listing.style.display = isMatch ? 'flex' : 'none';
         });
-    }
+    };
 
-    function updateFilters() {
-        filterTags.innerHTML = '';
-        filters.forEach(filter => {
-            const filterTag = document.createElement('div');
-            filterTag.className = 'tag';
-            filterTag.innerHTML = `<span>${filter}</span><button class="remove-tag">&times;</button>`;
-
-            filterTag.querySelector('.remove-tag').addEventListener('click', () => {
-                filters = filters.filter(f => f !== filter);
-                updateFilters();
-                filterJobs();
-            });
-
-            filterTags.appendChild(filterTag);
-        });
-        clearBtn.style.display = filters.length > 0 ? 'block' : 'none';
-    }
-
-    function filterJobs() {
-        if (filters.length === 0) {
-            displayJobs(jobs);
-            return;
+    // Function to add a filter tag
+    const addFilterTag = (tagText) => {
+        if (!Array.from(filterTagsContainer.querySelectorAll('.tag span')).some(tag => tag.textContent === tagText)) {
+            const tagElement = document.createElement('div');
+            tagElement.className = 'tag';
+            tagElement.innerHTML = `<span>${tagText}</span><button>&times;</button>`;
+            filterTagsContainer.appendChild(tagElement);
+            filterJobListings();
         }
+    };
 
-        const filteredJobs = jobs.filter(job => {
-            const tags = [
+    // Function to remove a filter tag
+    filterTagsContainer.addEventListener('click', (e) => {
+        if (e.target.tagName === 'BUTTON') {
+            e.target.parentElement.remove();
+            filterJobListings();
+        }
+    });
 
-            });
+    // Add tag on click
+    jobListingsContainer.addEventListener('click', (e) => {
+        if (e.target.tagName === 'SPAN' && e.target.closest('.job-tags')) {
+            addFilterTag(e.target.textContent);
+        }
+    });
+    // Event listener for clearing all filter tags
+    clearButton.addEventListener('click', () => {
+        filterTagsContainer.innerHTML = '';
+        filterJobListings();
+    });
+    // Clear all filter tags
+    clearButton.addEventListener('click', () => {
+        filterTagsContainer.innerHTML = '';
+        filterJobListings();
+    });
+});

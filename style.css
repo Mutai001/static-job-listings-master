@@ -1,5 +1,3 @@
-/* Typography */
-
 body {
     font-size: 15px;
     font-family: 'League Spartan', sans-serif;
@@ -8,9 +6,6 @@ body {
     margin: 0;
     padding: 0;
 }
-
-
-/* Header Background */
 
 .top-img {
     background-color: hsl(180, 29%, 50%);
@@ -21,16 +16,10 @@ body {
     position: relative;
 }
 
-
-/* Wrapper */
-
 .wrapper {
     width: 80%;
     margin: 0 auto;
 }
-
-
-/* Top section */
 
 .top-section {
     display: flex;
@@ -71,9 +60,6 @@ body {
     color: hsl(180, 29%, 50%);
 }
 
-
-/* Job Listings */
-
 .job-listing {
     background-color: white;
     padding: 20px;
@@ -104,6 +90,19 @@ body {
     align-items: center;
 }
 
+
+/* .job-title {
+    font-weight: 700;
+    color: hsl(180, 29%, 50%);
+    padding: 10px;
+} */
+
+.job-title h3 {
+    font-weight: 700;
+    color: hsl(180, 29%, 50%);
+    padding: 6px;
+}
+
 .company {
     font-weight: 700;
     color: hsl(180, 29%, 50%);
@@ -119,9 +118,14 @@ body {
     margin-left: 10px;
 }
 
-.job-title {
-    font-weight: 500;
-    color: hsl(180, 14%, 20%);
+.job-title h3 {
+    font-weight: 1000;
+    color: hsl(180, 12%, 5%);
+    font: bold;
+}
+
+.job-title:hover h3 {
+    color: hsl(180, 29%, 50%);
 }
 
 .job-info {
@@ -132,6 +136,7 @@ body {
 .job-tags {
     display: flex;
     gap: 10px;
+    float: right;
 }
 
 .job-tags span {
